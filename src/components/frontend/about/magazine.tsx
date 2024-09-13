@@ -1,34 +1,25 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { GalleryType } from "@/types/types";
 import ImagePreviewer from "../portfolio/imagePreviewer";
 import LinkOverLogo from "../linkOverLogo";
-
-async function getData() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/gallery`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-}
+import { fakeGalleryData } from "@/lib/fake-data"; // Adjust the path as needed
 
 function Magazine() {
   const [imgs, setImgs] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const gallery = await getData();
-        const activeImgs = gallery
-          .filter((item: GalleryType) => item.status === "active")
-          .flatMap((item: GalleryType) => item.imgs);
-        setImgs(activeImgs);
-      } catch (err) {
-        setError("Failed to load gallery.");
-        console.error(err);
-      }
-    };
-    fetchData();
+    try {
+      const gallery = fakeGalleryData; // Use the dummy data here
+      const activeImgs = gallery
+        .filter((item: GalleryType) => item.status === "active")
+        .flatMap((item: GalleryType) => item.imgs);
+      setImgs(activeImgs);
+    } catch (err) {
+      setError("Failed to load gallery.");
+      console.error(err);
+    }
   }, []);
 
   if (error) {

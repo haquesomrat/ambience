@@ -4,13 +4,15 @@ import Loading from "../loading";
 import { getAboutData } from "@/constants/admin/aboutData";
 import Magazine from "@/components/frontend/about/magazine";
 import ClientInfo from "@/components/frontend/about/clientInfo";
+import { dummyAboutData } from "@/lib/fake-data";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
 async function Page() {
-  const about = await getAboutData();
+  // const about = await getAboutData();
+  const about = dummyAboutData;
 
   if (!about) {
     return <Loading />;

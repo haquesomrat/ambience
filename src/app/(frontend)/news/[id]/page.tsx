@@ -1,21 +1,31 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getNewsDataWithId } from "@/constants/admin/newsDataWithID";
-import { ParamsType } from "@/types/types";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import React from "react";
 import LinkOverLogo from "@/components/frontend/linkOverLogo";
+import { ParamsType } from "@/types/types";
+
+// Define dummy data
+const dummyNewsData = {
+  id: "1",
+  thumbnail: "/images/news1.jpg",
+  title: "Exciting New Tech Innovations",
+  description:
+    "<p>Explore the latest in tech innovations happening around the world.</p>",
+  author: "John Doe",
+  formattedDate: "2024-09-10",
+  formattedTime: "10:00 AM",
+};
 
 function NewsId({ params }: { params: ParamsType }) {
   const [news, setNews] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Fetch news data client-side
+    // Simulate fetching news data
     const fetchNewsData = async () => {
       try {
-        const newsData = await getNewsDataWithId(params.id || "");
-        setNews(newsData);
+        // Replace with dummy data
+        setNews(dummyNewsData);
       } catch (error) {
         console.error("Failed to fetch news data:", error);
       } finally {
@@ -57,14 +67,14 @@ function NewsId({ params }: { params: ParamsType }) {
             width={1000}
             height={500}
             alt="News Image"
-            src={news?.thumbnail}
+            src={news.thumbnail}
             className="w-full h-full object-cover"
           />
         </div>
       </div>
       <p
         className="mt-10 prose max-w-none prose-headings:text-lightText prose-headings:font-normal prose-headings:uppercase text-justify text-[16px] font-openSans leading-8 tracking-[2px] font-semibold text-lightText opacity-80"
-        dangerouslySetInnerHTML={{ __html: news?.description }}
+        dangerouslySetInnerHTML={{ __html: news.description }}
       />
     </div>
   );

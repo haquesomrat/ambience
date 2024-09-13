@@ -7,24 +7,44 @@ import { motion } from "framer-motion";
 import { newsType } from "@/types/types";
 import axios from "axios";
 
+const dummyNewsData: newsType[] = [
+  {
+    id: "1",
+    thumbnail: "/images/news1.jpg",
+    title: "Exciting New Tech Innovations",
+    description:
+      "Explore the latest in tech innovations happening around the world.",
+    author: "John Doe",
+    time: "2024-09-10",
+  },
+  {
+    id: "2",
+    thumbnail: "/images/news2.jpg",
+    title: "Sustainability in 2024",
+    description: "How companies are moving towards sustainable practices.",
+    author: "Jane Smith",
+    time: "2024-09-11",
+  },
+];
+
 function Gallery({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const [news, setNews] = useState<newsType[] | null>(null);
+  const [news, setNews] = useState<newsType[] | null>(dummyNewsData);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await axios.get(`/api/news`);
-        setNews(res.data);
-      } catch (err) {
-        console.log("Error fetching slider data");
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const res = await axios.get(`/api/news`);
+  //       setNews(res.data);
+  //     } catch (err) {
+  //       console.log("Error fetching slider data");
+  //     }
+  //   };
+  //   getData();
+  // }, []);
 
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "6";
@@ -62,9 +82,14 @@ function Gallery({
               <h1 className="font-palatino text-lg text-start tracking-[5px] opacity-70 hover:opacity-90 transition-all ease-in-out duration-200  uppercase mb-2">
                 {data.title}
               </h1>
-              <p dangerouslySetInnerHTML={{ __html: data.description.length > 100 ? `${data.description.slice(0, 100)}...`: data.description}}>
-                
-              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html:
+                    data.description.length > 100
+                      ? `${data.description.slice(0, 100)}...`
+                      : data.description,
+                }}
+              ></p>
             </div>
           </Link>
         ))}

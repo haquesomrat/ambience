@@ -1,4 +1,4 @@
-import { menuType, serviceType, sliderType } from "@/types/types";
+import { aboutType, menuType, serviceType, sliderType } from "@/types/types";
 
 export const fakeSliderData: sliderType = {
   id: "1",
@@ -92,3 +92,40 @@ export const fakeMenuData: menuType = {
     },
   ],
 };
+// fake-data.ts
+import { GalleryType } from "@/types/types";
+
+export const fakeGalleryData: GalleryType[] = [
+  {
+    id: "1",
+    imgs: ["/images/gallery1.jpg", "/images/gallery2.jpg"],
+    status: "active",
+  },
+  {
+    id: "2",
+    imgs: ["/images/gallery3.jpg", "/images/gallery4.jpg"],
+    status: "inactive",
+  },
+  {
+    id: "3",
+    imgs: ["/images/gallery5.jpg", "/images/gallery6.jpg"],
+    status: "active",
+  },
+  {
+    id: "4",
+    imgs: ["/images/gallery7.jpg", "/images/gallery8.jpg"],
+    status: "active",
+  },
+];
+
+export const dummyAboutData: aboutType[] = [
+  {
+    id: "1",
+    status: "active",
+    avatar: ["/path/to/dummy-avatar1.jpg"],
+    title: "Our Mission",
+    subTitle: "What We Stand For",
+    description:
+      "<p>We aim to deliver the best service possible. Our mission is to...</p>",
+  },
+];

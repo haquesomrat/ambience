@@ -1,12 +1,29 @@
-"use client"
-import React, { useEffect, useState } from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { socialIcons } from '../contact/contactBox';
-import axios from 'axios';
-import { menuType } from '@/types/types';
+import { socialIcons } from "../contact/contactBox";
+import axios from "axios";
+import { menuType } from "@/types/types";
 
-function Social({className}:{className?:string}) {
-  const [social, setSocial] = useState<menuType | null>(null);
+export const dummySocialData: menuType = {
+  items: [
+    {
+      name: "facebook",
+      link: "https://www.facebook.com",
+    },
+    {
+      name: "instagram",
+      link: "https://www.instagram.com",
+    },
+    {
+      name: "google business",
+      link: "https://www.google.com/business",
+    },
+  ],
+};
+
+function Social({ className }: { className?: string }) {
+  const [social, setSocial] = useState<menuType | null>(dummySocialData);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -18,25 +35,26 @@ function Social({className}:{className?:string}) {
     };
     getData();
   }, []);
-  
+
   return (
-    <div className={`flex justify-center items-center gap-5 pt-3 px-5 ${className}`}>
-          {social?.items?.map((item:{name:string;link:string}) => (
-          <Link key={item.name} className="icon-link" href={`${item.link}`}>
-            {item.name === "facebook" ? (
-              socialIcons.facebook
-            ) : item.name == "instagram" ? (
-              socialIcons.instagram
-            ) : item.name === "google business" ? (
-              socialIcons.googleBusiness
-            ) : (
-              <span></span>
-            )}
-          </Link>
-        ))}
-          
-        </div>
-  )
+    <div
+      className={`flex justify-center items-center gap-5 pt-3 px-5 ${className}`}
+    >
+      {social?.items?.map((item: { name: string; link: string }) => (
+        <Link key={item.name} className="icon-link" href={`${item.link}`}>
+          {item.name === "facebook" ? (
+            socialIcons.facebook
+          ) : item.name == "instagram" ? (
+            socialIcons.instagram
+          ) : item.name === "google business" ? (
+            socialIcons.googleBusiness
+          ) : (
+            <span></span>
+          )}
+        </Link>
+      ))}
+    </div>
+  );
 }
 
-export default Social
+export default Social;

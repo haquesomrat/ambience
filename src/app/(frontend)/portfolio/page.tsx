@@ -8,31 +8,33 @@ export const metadata: Metadata = {
   title: "Portfolio",
 };
 
-async function getData() {
-  try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/portfolio`, {
-      next: { tags: ["portfolio"] },
-    });
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    return res.json();
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
-}
+const staticPortfolioData = [
+  {
+    id: "1",
+    title: "Project One",
+    imageUrl: "/images/project1.jpg",
+    description: "Description of project one",
+    status: "active",
+  },
+  {
+    id: "2",
+    title: "Project Two",
+    imageUrl: "/images/project2.jpg",
+    description: "Description of project two",
+    status: "active",
+  },
+];
 
 async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  let portfolio = await getData();
+  const portfolio = staticPortfolioData; // Use the static data
 
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "6";
-  // mocked, skipped and limited in the real app
+
   const start = (Number(page) - 1) * Number(per_page); // 0, 6, 12 ...
   const end = start + Number(per_page); // 6, 12, 18 ...
 
